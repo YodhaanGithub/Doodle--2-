@@ -1,174 +1,49 @@
-canvas=document.getElementById("myCanvas");
-ctx=canvas.getContext("2d");
+to_draw = ["Stars","Alien", "Bus", "Car", "Coffee", "Fork", "Feet", "Pencil", "Spider", "Laptop"];
+choose= Math.floor((Math.random()*to_draw.length)+ 1);
+array_element = to_draw[choose];
+document.getElementById("drawn").innerHTML = "To be Drawn: "+ array_element;
 
-car_x=10;
-car_y=10;
+timer_counter = 0;
+timer_check = "";
+drawn_sketch = "";
+answer_holder = "";
+score = 0;
+sketch = array_element;
 
-car2_x=695;
-car2_y=10;
-
-car_img="car1.png";
-car_img2="download.jpg";
-
-background_img="Background.jpg";
-
-car2_width="150";
-car2_height="80";
-
-car_width="150";
-car_height="80";
-
-function add(){
-    bgimg=new Image();
-    bgimg.onload=uploudbg;
-    bgimg.src=background_img;  
-    
-    carimg=new Image();
-    carimg.onload=uploudcar;
-    carimg.src=car_img;   
-
-    car2img=new Image();
-    car2img.onload=uploudcar2;
-    car2img.src=car_img2;   
+function draw(){
+    check_sketch();
+    if(drawn_sketch == sketch){
+        answer_holder = "set";
+        score = score+1;
+        document.getElementById("score").innerHTML = "Score: "+score;
+    }
 }
 
-function uploudbg(){
-    ctx.drawImage(bgimg,0,0, canvas.width, canvas.height);
+function check_sketch(){
+    timer_counter++;
+    document.getElementById("timer").innerHTML = "Timer: "+timer_counter;
+    if(timer_counter>1000){
+        timer_counter = 0;
+        timer_check = "completed";
+    }
+    if(timer_check == "completed" || answer_holder == "set"){
+        timer_check = "";
+        answer_holder = "";
+        updateCanvas();
+    }
 }
 
-function uploudcar(){
-    ctx.drawImage(carimg, car_x, car_y, car_width, car_height);
+function updateCanvas(){
+    background("cyan");
+    to_draw = ["Stars","Alien", "Bus", "Car", "Coffee", "Fork", "Feet", "Pencil", "Spider", "Laptop"];   
+    choose= Math.floor((Math.random()*to_draw.length)+ 1);
+array_element = to_draw[choose];
+document.getElementById("drawn").innerHTML = "To be Drawn: "+ array_element;
+    sketch = array_element;
 }
 
-function uploudcar2(){
-    ctx.drawImage(car2img, car2_x, car2_y, car2_width, car2_height);
+function setup(){
+    canvas = createCanvas(280,280);
+    canvas.center();
+    background("white");
 }
-
-window.addEventListener("keydown",my_keydown2)
-
-function  my_keydown2(e){
-    keyPressed = e.keyCode;
-    console.log(keyPressed);
-    if (keyPressed == '87'){
-         up2(); 
-        console.log("up w key");
-    }
-    if (keyPressed == '83'){
-        down2();
-        console.log("down s key");
-    }
-    if (keyPressed == '68'){
-        left2();
-        console.log("left d key");
-    }
-    if (keyPressed == '65'){
-         right2();
-         console.log("right a key");
-    }
-
-}
-   
-
-function down2(){
-    if (car2_y<=700 )
-        car2_y+=10;
-        console.log("When the s key is pressed x="+ car2_x +"| y=" + car2_y );
-        uploudbg();
-        uploudcar2();
-        uploudcar();
-    };
-    function up2(){
-        if (car2_y>=0 ) {
-            car2_y-=10;
-            console.log("When the w key is pressed x="+ car2_x +"| y=" + car2_y );
-            uploudbg();
-            uploudcar2();
-            uploudcar();
-        }
-        };
-        function right2(){
-            if (car2_x<=1000 ){
-                car2_x+=10;
-                console.log("When the d key is pressed x="+ car2_x +"| y=" + car2_y );
-                uploudbg();
-                uploudcar2();
-                uploudcar();
-            }
-            };
-    
-            
-            function left2(){
-                if (car2_x>=0 ){
-                    car2_x-=10;
-                    console.log("When the left key is pressed x="+ car2_x +"| y=" + car2_y );
-                    uploudbg();
-                    uploudcar2();
-                    uploudcar();
-                }
-                };
-                
-            
-window.addEventListener("keydown",my_keydown)
-
-function  my_keydown(e){
-    keyPressed = e.keyCode;
-    console.log(keyPressed);
-    if (keyPressed == '38'){
-         up(); 
-        console.log("up arrow key");
-    }
-    if (keyPressed == '40'){
-        down();
-        console.log("down arrow key");
-    }
-    if (keyPressed == '37'){
-        left();
-        console.log("left arrow key");
-    }
-    if (keyPressed == '39'){
-         right();
-         console.log("right arrow key");
-    }
-
-}
-   
-
-function down(){
-    if (car_y<=700 )
-        car_y+=10;
-        console.log("When the down key is pressed x="+ car_x +"| y=" + car_y );
-        uploudbg();
-        uploudcar();
-        uploudcar2();
-    };
-    function up(){
-        if (car_y>=0 ) {
-            car_y-=10;
-            console.log("When the up key is pressed x="+ car_x +"| y=" + car_y );
-            uploudbg();
-            uploudcar();
-            uploudcar2();
-        }
-        };
-        function right(){
-            if (car_x<=1000 ){
-                car_x+=10;
-                console.log("When the right key is pressed x="+ car_x +"| y=" + car_y );
-                uploudbg();
-                uploudcar();
-                uploudcar2();
-            }
-            };
-    
-            
-            function left(){
-                if (car_x>=0 ){
-                    car_x-=10;
-                    console.log("When the left key is pressed x="+ car_x +"| y=" + car_y );
-                    uploudbg();
-                    uploudcar();
-                    uploudcar2();
-                }
-                };
-                
-            
